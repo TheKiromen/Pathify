@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dkrucze.PathifyApp.MainGUIController">
+   <children>
+      <Button fx:id="loadFile" layoutX="820.0" layoutY="115.0" mnemonicParsing="false" onAction="#chooseImage" text="Load an image">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button id="process" fx:id="computeButton" disable="true" layoutX="835.0" layoutY="230.0" mnemonicParsing="false" onAction="#processImage" text="Compute">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Label id="fileName" fx:id="fileName" alignment="CENTER" contentDisplay="CENTER" layoutX="776.0" layoutY="40.0" maxHeight="50.0" maxWidth="200.0" prefWidth="200.0" text="No file chosen" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator layoutX="752.0" layoutY="181.0" prefWidth="248.0" />
+      <Separator layoutX="750.0" orientation="VERTICAL" prefHeight="750.0" />
+      <Canvas id="canvas" fx:id="canvas" height="720.0" layoutX="15.0" layoutY="15.0" width="720.0" />
+      <ProgressBar id="progress" fx:id="progressBar" disable="true" layoutX="774.0" layoutY="283.0" prefWidth="200.0" progress="0.0" />
+   </children>
+</Pane>
