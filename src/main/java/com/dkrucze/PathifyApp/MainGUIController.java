@@ -4,13 +4,11 @@ import java.awt.image.BufferedImage;
 
 import com.dkrucze.PathifyCore.ImageToPathConverter;
 import com.dkrucze.PathifyCore.PathifiedImage;
-import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -43,28 +41,48 @@ public class MainGUIController {
         if(inputFile!=null){
             try {
                 image = ImageIO.read(new File(inputFile.getAbsolutePath()));
+                if(image.getWidth()<=10 || image.getHeight() <=10){
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Image to small. \nImage need to have at lest 10x10 resolution.", ButtonType.OK);
+                    alert.showAndWait();
+                    computeButton.setDisable(true);
+                    return;
+                }
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
+
             computeButton.setDisable(false);
             progressBar.setDisable(false);
             progressBar.setProgress(0);
             fileName.setText(inputFile.getName());
+
+            //TODO
+            // Create class to scale the path and display it on canvas.
         }
     }
 
     public void processImage(ActionEvent e){
-        progressBar.setProgress(-1.0);
-        try{
-            //TODO run this on seperate thread to not clog main FX thread
-            ImageToPathConverter converter = new ImageToPathConverter(image);
-            result = converter.convert();
-        }catch(IllegalArgumentException ex){
-            ex.printStackTrace();
+        Task<PathifiedImage> task = new Task<PathifiedImage>() {
+            @Override
+            protected PathifiedImage call() throws Exception {
+                ImageToPathConverter converter = new ImageToPathConverter(image);
+                result = converter.convert(progressBar);
+                return result;
+            }
+        };
+
+        task.setOnSucceeded(wse -> {
+            computeButton.setDisable(true);
+            progressBar.setProgress(1.0);
+        });
+
+        task.setOnFailed(wse -> {
             progressBar.setProgress(0);
-        }
-        computeButton.setDisable(true);
-        progressBar.setProgress(1.0);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Something went wrong.", ButtonType.OK);
+            alert.show();
+        });
+
+        new Thread(task).start();
     }
 
 

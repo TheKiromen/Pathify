@@ -1,5 +1,7 @@
 package com.dkrucze.PathifyCore;
 
+import javafx.scene.control.ProgressBar;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
@@ -34,7 +36,7 @@ public class ImageToPathConverter {
      * @return Instance of PathifiedImage which contains all steps of the conversion
      */
     //Convert the image
-    public PathifiedImage convert(){
+    public PathifiedImage convert(ProgressBar bar){
         //Convert only once
         if(result==null){
             result=new PathifiedImage(tmp);
@@ -42,21 +44,25 @@ public class ImageToPathConverter {
             //Convert image to the grayscale
             tmp = GrayscaleConversion.convert(tmp);
             result.setGreyscaleImage(tmp);
+            bar.setProgress(0.2);
 
             //Blur the image
             GaussianBlur fgBlur = new GaussianBlur(tmp);
             tmp = fgBlur.blur();
             result.setBlurredImage(tmp);
+            bar.setProgress(0.4);
 
             //Find edges using sobel edge detection
             SobelEdgeDetection sobel = new SobelEdgeDetection(tmp);
             SobelResult sobelRes = sobel.findEdges();
             result.setSobelEdges(sobelRes);
+            bar.setProgress(0.6);
 
             //Enhance the edges using Canny edge detection
             CannyEdgeDetection canny = new CannyEdgeDetection(sobelRes);
             tmp = canny.detect();
             result.setCannyEdges(tmp);
+            bar.setProgress(0.8);
 
             //Calculate path based on the edges
             PathCreator pc = new PathCreator(tmp);
