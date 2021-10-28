@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 import com.dkrucze.PathifyCore.ImageToPathConverter;
 import com.dkrucze.PathifyCore.PathifiedImage;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -47,19 +48,22 @@ public class MainGUIController {
             }
             computeButton.setDisable(false);
             progressBar.setDisable(false);
+            progressBar.setProgress(0);
             fileName.setText(inputFile.getName());
         }
     }
 
     public void processImage(ActionEvent e){
-        //TODO
+        progressBar.setProgress(-1.0);
         try{
+            //TODO run this on seperate thread to not clog main FX thread
             ImageToPathConverter converter = new ImageToPathConverter(image);
             result = converter.convert();
-            System.out.println(result.getPath());
         }catch(IllegalArgumentException ex){
-            //TODO pop-up error
+            ex.printStackTrace();
+            progressBar.setProgress(0);
         }
+        computeButton.setDisable(true);
         progressBar.setProgress(1.0);
     }
 
