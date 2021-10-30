@@ -55,9 +55,6 @@ public class MainGUIController {
             progressBar.setDisable(false);
             progressBar.setProgress(0);
             fileName.setText(inputFile.getName());
-
-            //TODO
-            // Create class to scale the path and display it on canvas.
         }
     }
 
@@ -72,8 +69,9 @@ public class MainGUIController {
         };
 
         task.setOnSucceeded(wse -> {
-            computeButton.setDisable(true);
             progressBar.setProgress(1.0);
+            computeButton.setDisable(true);
+            animate(e);
         });
 
         task.setOnFailed(wse -> {
@@ -85,5 +83,10 @@ public class MainGUIController {
         new Thread(task).start();
     }
 
+    public void animate(ActionEvent e){
+        System.out.println("test");
+        //TODO
+        // Create class to scale the path and display it on canvas.
+    }
 
 }
