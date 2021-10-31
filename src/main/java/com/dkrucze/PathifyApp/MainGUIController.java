@@ -71,7 +71,8 @@ public class MainGUIController {
         task.setOnSucceeded(wse -> {
             progressBar.setProgress(1.0);
             computeButton.setDisable(true);
-            animate(e);
+            Animator animator = new Animator(canvas,result.getPath());
+            animator.animate();
         });
 
         task.setOnFailed(wse -> {
@@ -82,11 +83,4 @@ public class MainGUIController {
 
         new Thread(task).start();
     }
-
-    public void animate(ActionEvent e){
-        System.out.println("test");
-        //TODO
-        // Create class to scale the path and display it on canvas.
-    }
-
 }
