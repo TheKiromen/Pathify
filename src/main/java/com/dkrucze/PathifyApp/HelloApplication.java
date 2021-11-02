@@ -14,9 +14,6 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Pathify!");
         stage.setScene(scene);
-        //FIXME
-        // Make GUI more dynamic
-        // Canvas size dependent on window size
         stage.setResizable(false);
         stage.show();
     }

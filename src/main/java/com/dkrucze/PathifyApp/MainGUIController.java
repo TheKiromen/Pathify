@@ -27,9 +27,10 @@ public class MainGUIController {
     FileChooser chooser = new FileChooser();
     //FIXME Add more file extensions
     FileChooser.ExtensionFilter imagesFilter = new FileChooser.ExtensionFilter("Images","*.jpg","*.png");
-    File inputFile;
-    BufferedImage image;
-    PathifiedImage result;
+    private File inputFile;
+    private BufferedImage image;
+    private PathifiedImage result;
+    private Animator animator;
 
 
     public void chooseImage(ActionEvent e){
@@ -62,6 +63,8 @@ public class MainGUIController {
         Task<PathifiedImage> task = new Task<PathifiedImage>() {
             @Override
             protected PathifiedImage call() throws Exception {
+                if(animator!=null)
+                    animator.terminate();
                 ImageToPathConverter converter = new ImageToPathConverter(image);
                 result = converter.convert(progressBar);
                 return result;
@@ -71,7 +74,7 @@ public class MainGUIController {
         task.setOnSucceeded(wse -> {
             progressBar.setProgress(1.0);
             computeButton.setDisable(true);
-            Animator animator = new Animator(canvas,result.getPath());
+            animator = new Animator(canvas,result.getPath());
             animator.animate();
         });
 
