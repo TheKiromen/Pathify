@@ -74,7 +74,7 @@ public class MainGUIController {
         task.setOnSucceeded(wse -> {
             progressBar.setProgress(1.0);
             computeButton.setDisable(true);
-            animator = new Animator(canvas,result.getPath());
+            animator = new Animator(canvas,result);
             animator.animate();
         });
 

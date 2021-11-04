@@ -87,6 +87,12 @@ public class PathifiedImage {
     public LinkedList<Point> getPath(){
         return path;
     }
+    public int getImageWidth(){
+        return initialImage[0].length;
+    }
+    public int getImageHeight(){
+        return initialImage.length;
+    }
 
 
     /**
