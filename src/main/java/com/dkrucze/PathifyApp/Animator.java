@@ -25,12 +25,11 @@ public class Animator {
         //Scale the path
         path = new LinkedList<>();
         double x,y;
-        //FIXME Figure out how many points in path to skip to get smooth animation
-        // Math.ceil(scalingFactor/720)?
-        // some function based on result.getPath.size()?
-        for(Point p : result.getPath()){
-            x=p.x*width/scalingFactor;
-            y=p.y*height/scalingFactor;
+        LinkedList<Point> tmp = result.getPath();
+        int step = (int)Math.ceil(tmp.size()/5000.0);
+        for(int i=0;i<tmp.size();i+=step){
+            x=tmp.get(i).x*width/scalingFactor;
+            y=tmp.get(i).y*height/scalingFactor;
             path.add(new Point((int)x,(int)y));
         }
     }
