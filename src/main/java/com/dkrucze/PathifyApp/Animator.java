@@ -13,15 +13,17 @@ public class Animator {
 
     private GraphicsContext gc;
     private LinkedList<Point> path;
+    private LinkedList<Complex> fourier;
     private AnimationTimer animation;
-    private double width,height,scalingFactor,time=0;
-    int n=1;
+    private double width,height,scalingFactor,time,dt;
+    int n;
 
     Animator(Canvas c, PathifiedImage result){
         gc=c.getGraphicsContext2D();
         width=c.getWidth();
         height=c.getHeight();
         scalingFactor= result.getImageHeight() > result.getImageWidth() ? result.getImageHeight() : result.getImageWidth();
+
         //Scale the path
         path = new LinkedList<>();
         double x,y;
@@ -32,25 +34,36 @@ public class Animator {
             y=tmp.get(i).y*height/scalingFactor;
             path.add(new Point((int)x,(int)y));
         }
+
+        fourier=Fourier.DFT(path);
+        //Variables for animation
+        n=1;
+        time=0;
+        dt=Math.PI*2/fourier.size();
     }
 
     public void animate(){
         animation = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                //updateFrame();
-                test();
+                updateFrame();
+                //test();
             }
         };
         animation.start();
-        //TODO
-        // Implement DFT
-        // Display scaled path after transform
     }
 
     private void updateFrame() {
         gc.clearRect(0,0,width,height);
         double x=360,y=360;
+        //FIXME
+//        for(Complex c : fourier){
+//            double prevx=x,prevy=y;
+//            double theta = c.freq*time+c.phase;
+//            x+=c.amp*Math.cos(theta);
+//            y+=c.amp*Math.sin(theta);
+//            gc.strokeLine(prevx,prevy,x,y);
+//        }
         for(int i=0; i<10;i++){
             double prevx=x,prevy=y;
             int n=i*2+1;
@@ -61,7 +74,7 @@ public class Animator {
             //gc.strokeOval(prevx-radius,prevy-radius,radius*2,radius*2);
             gc.strokeLine(prevx,prevy,x,y);
         }
-        time+=0.02;
+        time+=dt;
     }
 
     private void test(){
