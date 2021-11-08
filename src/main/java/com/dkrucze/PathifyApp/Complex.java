@@ -29,8 +29,8 @@ public class Complex {
     }
 
     Complex multiply(Complex other){
-        double rea = re * other.re - im * other.im;
-        double ima = re * other.im + im * other.re;
+        double rea = (re * other.re) - (im * other.im);
+        double ima = (re * other.im) + (im * other.re);
         return new Complex(rea, ima);
     }
 

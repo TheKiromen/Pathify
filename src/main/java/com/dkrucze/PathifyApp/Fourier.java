@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 public class Fourier {
 
-    //FIXME
     public static LinkedList<Complex> DFT(LinkedList<Point> input){
         LinkedList<Complex> result = new LinkedList<>();
         int N = input.size();
@@ -17,7 +16,7 @@ public class Fourier {
                 double phi = (Math.PI * 2.0 * k * n) / N;
                 Complex c = new Complex(Math.cos(phi),-Math.sin(phi));
                 tmp=new Complex(input.get(n).x,input.get(n).y);
-                sum.add(tmp.multiply(c));
+                sum=sum.add(tmp.multiply(c));
             }
             sum=sum.divide(N);
             double freq = k;

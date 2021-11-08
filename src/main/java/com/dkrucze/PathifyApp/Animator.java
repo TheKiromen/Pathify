@@ -4,6 +4,7 @@ import com.dkrucze.PathifyCore.PathifiedImage;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 
 import java.awt.Point;
@@ -12,7 +13,7 @@ import java.util.LinkedList;
 public class Animator {
 
     private GraphicsContext gc;
-    private LinkedList<Point> path;
+    private LinkedList<Point> path,shape;
     private LinkedList<Complex> fourier;
     private AnimationTimer animation;
     private double width,height,scalingFactor,time,dt;
@@ -26,6 +27,7 @@ public class Animator {
 
         //Scale the path
         path = new LinkedList<>();
+        shape = new LinkedList<>();
         double x,y;
         LinkedList<Point> tmp = result.getPath();
         int step = (int)Math.ceil(tmp.size()/5000.0);
@@ -55,25 +57,37 @@ public class Animator {
 
     private void updateFrame() {
         gc.clearRect(0,0,width,height);
-        double x=360,y=360;
-        //FIXME
-//        for(Complex c : fourier){
-//            double prevx=x,prevy=y;
-//            double theta = c.freq*time+c.phase;
-//            x+=c.amp*Math.cos(theta);
-//            y+=c.amp*Math.sin(theta);
-//            gc.strokeLine(prevx,prevy,x,y);
-//        }
-        for(int i=0; i<10;i++){
+        double x=0,y=0;
+        //FIXME REFACTOR THIS
+        for(Complex c : fourier){
             double prevx=x,prevy=y;
-            int n=i*2+1;
-            double radius = 100.0*(4/(n*Math.PI));
-            x+=radius*Math.cos(n*time);
-            y+=radius*Math.sin(n*time);
-
-            //gc.strokeOval(prevx-radius,prevy-radius,radius*2,radius*2);
+            double theta = c.freq*time+c.phase;
+            x+=c.amp*Math.cos(theta);
+            y+=c.amp*Math.sin(theta);
+            gc.setStroke(Color.LIGHTGREY);
+            gc.strokeOval(prevx-c.amp,prevy-c.amp,c.amp*2,c.amp*2);
+            gc.setStroke(Color.GREY);
             gc.strokeLine(prevx,prevy,x,y);
         }
+        shape.add(new Point((int)x,(int)y));
+        gc.setStroke(Color.RED);
+        gc.beginPath();
+        for(Point p : shape){
+            gc.lineTo(p.x,p.y);
+        }
+        gc.closePath();
+        gc.stroke();
+
+//        for(int i=0; i<10;i++){
+//            double prevx=x,prevy=y;
+//            int n=i*2+1;
+//            double radius = 100.0*(4/(n*Math.PI));
+//            x+=radius*Math.cos(n*time);
+//            y+=radius*Math.sin(n*time);
+//
+//            //gc.strokeOval(prevx-radius,prevy-radius,radius*2,radius*2);
+//            gc.strokeLine(prevx,prevy,x,y);
+//        }
         time+=dt;
     }
 
