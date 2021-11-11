@@ -7,6 +7,7 @@ import com.dkrucze.PathifyCore.PathifiedImage;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -25,8 +26,7 @@ public class MainGUIController {
 
     //Variables
     FileChooser chooser = new FileChooser();
-    //FIXME Add more file extensions
-    FileChooser.ExtensionFilter imagesFilter = new FileChooser.ExtensionFilter("Images","*.jpg","*.png");
+    FileChooser.ExtensionFilter imagesFilter = new FileChooser.ExtensionFilter("Images","*.jpg","*.png","*.bmp");
     private File inputFile;
     private BufferedImage image;
     private PathifiedImage result;
@@ -65,6 +65,8 @@ public class MainGUIController {
             protected PathifiedImage call() throws Exception {
                 if(animator!=null)
                     animator.terminate();
+                computeButton.setDisable(true);
+                computeButton.getScene().setCursor(Cursor.WAIT);
                 ImageToPathConverter converter = new ImageToPathConverter(image);
                 result = converter.convert(progressBar);
                 return result;
@@ -72,8 +74,9 @@ public class MainGUIController {
         };
 
         task.setOnSucceeded(wse -> {
+            computeButton.getScene().setCursor(Cursor.DEFAULT);
+            computeButton.setDisable(false);
             progressBar.setProgress(1.0);
-            computeButton.setDisable(true);
             animator = new Animator(canvas,result);
             animator.animate();
         });
