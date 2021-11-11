@@ -1,0 +1,14 @@
+com\dkrucze\PathifyApp\MainGUIController$1.class
+com\dkrucze\PathifyCore\PathCreator.class
+com\dkrucze\PathifyCore\GaussianBlur.class
+com\dkrucze\PathifyCore\GrayscaleConversion.class
+com\dkrucze\PathifyCore\PathifiedImage.class
+com\dkrucze\PathifyCore\SobelEdgeDetection.class
+com\dkrucze\PathifyApp\Animator$1.class
+com\dkrucze\PathifyApp\HelloApplication.class
+com\dkrucze\PathifyApp\MainGUIController.class
+com\dkrucze\PathifyApp\Animator.class
+com\dkrucze\PathifyCore\SobelResult.class
+module-info.class
+com\dkrucze\PathifyCore\CannyEdgeDetection.class
+com\dkrucze\PathifyCore\ImageToPathConverter.class

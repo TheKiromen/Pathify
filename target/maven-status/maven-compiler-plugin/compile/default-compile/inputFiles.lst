@@ -1,0 +1,12 @@
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyApp\HelloApplication.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\ImageToPathConverter.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\PathCreator.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\CannyEdgeDetection.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\PathifiedImage.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\GaussianBlur.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\SobelEdgeDetection.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\SobelResult.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyApp\MainGUIController.java
+E:\Projekty\Pathify\src\main\java\module-info.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyCore\GrayscaleConversion.java
+E:\Projekty\Pathify\src\main\java\com\dkrucze\PathifyApp\Animator.java
