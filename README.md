@@ -7,18 +7,18 @@ Works best for high contrast images. Depending on your computer it may take few 
 
 ## Demo
 
-[Executable](Pathify.rar) - comes bundled with Java, just extract and run.
+[Executable](https://drive.google.com/file/d/1bYjdpUUySQBQMLppQ_O6uP-9kMCQUVsY/view?usp=sharing) - comes bundled with Java, just extract and run.
 
 
 ## Screenshots
 
 ![App Screenshot](Screenshots/App.png)
 ![App Screenshot](Screenshots/Image1.jpg)
-![App Screenshot](Screenshots/image1Result.png)
+![App Screenshot](Screenshots/Image1Result.png)
 ![App Screenshot](Screenshots/Image2.jpg)
-![App Screenshot](Screenshots/image2Result.png)
+![App Screenshot](Screenshots/Image2Result.png)
 ![App Screenshot](Screenshots/Image3.jpg)
-![App Screenshot](Screenshots/image3Result.png)
+![App Screenshot](Screenshots/Image3Result.png)
 
 
 ## Features
